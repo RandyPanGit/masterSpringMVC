@@ -28,6 +28,6 @@ repositories {
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web:1.5.4.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf:1.5.4.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-social-twitter:1.5.4.RELEASE'
 }
