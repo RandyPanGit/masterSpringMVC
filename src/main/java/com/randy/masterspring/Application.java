@@ -13,11 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @SpringBootApplication
 public class Application {
-    @RequestMapping("/")
-    String home(Model model){
-        model.addAttribute("message","hello from the contrller");
-        return "resultPage";
-    }
 
     public static void main(String[] args){
         SpringApplication.run(Application.class, args);
