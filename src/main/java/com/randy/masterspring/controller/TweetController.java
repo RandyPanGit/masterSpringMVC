@@ -1,4 +1,4 @@
-package com.randy.masterspring.com.masterspringmvc.controller;
+package com.randy.masterspring.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.twitter.api.SearchResults;
@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by randy on 2017/7/5.
