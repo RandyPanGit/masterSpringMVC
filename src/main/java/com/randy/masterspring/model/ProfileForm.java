@@ -1,5 +1,6 @@
 package com.randy.masterspring.model;
 
+import com.randy.masterspring.date.PastLocalDate;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -22,6 +23,7 @@ public class ProfileForm {
     private String email;
 
     @NotNull
+    @PastLocalDate
     private LocalDate birthDate;
 
     @NotEmpty
