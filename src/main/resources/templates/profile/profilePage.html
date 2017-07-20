@@ -13,19 +13,20 @@
 
         <div class="row">
             <div class="input-field col s6">
-                <input th:field="${profileForm.twitterHandle}" id="twitterHandle" type="text" th:errorclass="invalid" />
+                <input th:field="${profileForm.twitterHandle}" id="twitterHandle" type="text" th:errorclass="invalid" required="required" />
                 <label for="twitterHandle" th:text="#{twitter.handle}">Last Name</label>
                 <div th:errors="*{twitterHandle}" class="red-text">Error</div>
             </div>
             <div class="input-field col s6">
-                <input th:field="${profileForm.email}" id="email" type="text" th:errorclass="invalid" />
+                <input th:field="${profileForm.email}" id="email" type="email" th:errorclass="invalid" required="required" />
                 <label for="email" th:text="#{email}">Email</label>
                 <div th:errors="*{email}" class="red-text">Error</div>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s6">
-                <input th:field="${profileForm.birthDate}" id="birthDate" type="text" th:errorclass="invalid" th:placeholder="${dateFormat}" />
+                <input th:field="${profileForm.birthDate}" id="birthDate" type="text"
+                       th:errorclass="invalid" th:placeholder="${dateFormat}" required="required"/>
                 <label for="birthDate" th:text="#{birthdate}" >Birth</label>
             </div>
         </div>
@@ -40,7 +41,7 @@
             <div th:errors="*{tastes}" class="red-text">Error</div>
             <div class="row" th:each="row,rowStat: *{tastes}">
                 <div class="col s6">
-                    <input type="text" th:field="*{tastes[__${rowStat.index}__]}" th:placeholder="#{taste.placeholder}"/>
+                    <input type="text" th:field="*{tastes[__${rowStat.index}__]}" th:placeholder="#{taste.placeholder}" required="required"/>
                 </div>
                 <div class="col s6">
                     <button class="btn red" type="submit" name="removeTaste" th:value="${rowStat.index}" th:text="#{remove}">Remove</button>
@@ -55,5 +56,14 @@
         </div>
     </form>
 </div>
+<script layout:fragment="script">
+    $('button').bind('click', function (e) {
+        if (e.currentTarget.name === 'save') {
+            $(e.currentTarget.form).removeAttr('novalidate');
+        } else {
+            $(e.currentTarget.form).attr('novalidate', 'novalidate');
+        }
+    });
+</script>
 </body>
 </html>
