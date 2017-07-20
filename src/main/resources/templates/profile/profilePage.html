@@ -33,14 +33,14 @@
             <legend th:text="#{tastes.legend}">
                 What do you like?
             </legend>
-            <button class="btn teal" type="submit" name="addTeste" th:text="#{add.taste}">
+            <button class="btn teal" type="submit" name="addTaste" th:text="#{add.taste}">
                 Add taste
                 <i class="mdi-content-add left"></i>
             </button>
             <div th:errors="*{tastes}" class="red-text">Error</div>
             <div class="row" th:each="row,rowStat: *{tastes}">
                 <div class="col s6">
-                    <input type="text" th:field="*{tastes[__{rowStat.index}__]}" th:placeholder="#{taste.placeholder}"/>
+                    <input type="text" th:field="*{tastes[__${rowStat.index}__]}" th:placeholder="#{taste.placeholder}"/>
                 </div>
                 <div class="col s6">
                     <button class="btn red" type="submit" name="removeTaste" th:value="${rowStat.index}" th:text="#{remove}">Remove</button>
