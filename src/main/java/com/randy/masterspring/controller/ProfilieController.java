@@ -2,6 +2,8 @@ package com.randy.masterspring.controller;
 
 import com.randy.masterspring.date.USLocalDateFormatter;
 import com.randy.masterspring.model.ProfileForm;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +19,14 @@ import java.util.Locale;
  */
 @Controller
 public class ProfilieController {
+
+    private static final Resource PICTURES_DIR = new FileSystemResource("./pictures");
+
+    @RequestMapping("upload")
+    public String uploadPage(){
+        return "profile/uploadPage";
+    }
+
 
     @RequestMapping("profile")
     public String displayProfile(ProfileForm profileForm){
