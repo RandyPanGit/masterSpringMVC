@@ -2,6 +2,7 @@ package com.randy.masterspring.controller;
 
 import com.randy.masterspring.date.USLocalDateFormatter;
 import com.randy.masterspring.model.ProfileForm;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,10 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.*;
+import java.net.URLConnection;
 import java.util.Locale;
 
 /**
@@ -26,6 +29,12 @@ public class ProfilieController {
 
     private static final Resource PICTURES_DIR = new FileSystemResource("./pictures");
 
+    @RequestMapping(value = "/uploadedPicture")
+    public void getUploadedPicture(HttpServletResponse response) throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("/images/anonymous.png");
+        response.setHeader("Content-Type", URLConnection.guessContentTypeFromName(classPathResource.getFilename()));
+        IOUtils.copy(classPathResource.getInputStream(),response.getOutputStream());
+    }
     @RequestMapping("upload")
     public String uploadPage(){
         return "profile/uploadPage";
