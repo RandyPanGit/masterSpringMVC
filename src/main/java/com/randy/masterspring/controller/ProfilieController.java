@@ -9,9 +9,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.*;
 import java.util.Locale;
 
 /**
@@ -24,6 +27,18 @@ public class ProfilieController {
 
     @RequestMapping("upload")
     public String uploadPage(){
+        return "profile/uploadPage";
+    }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String onUpload(MultipartFile file) throws IOException{
+        String fileName = file.getOriginalFilename();
+        File tempFile = File.createTempFile("pic",getFileExtension(fileName),PICTURES_DIR.getFile());
+
+        try (InputStream in = file.getInputStream();
+             OutputStream out = new FileOutputStream(tempFile)){
+            IOUtils.copy(in,out);
+        }
         return "profile/uploadPage";
     }
 
@@ -58,5 +73,9 @@ public class ProfilieController {
         Integer rowId = Integer.valueOf(request.getParameter("removeTaste"));
         profileForm.getTastes().remove(rowId.intValue());
         return "profile/profilePage";
+    }
+
+    private static String getFileExtension(String name){
+        return name.substring(name.lastIndexOf("."));
     }
 }
