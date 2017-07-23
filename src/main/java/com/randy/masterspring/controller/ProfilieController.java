@@ -75,6 +75,10 @@ public class ProfilieController {
         return "profile/profilePage";
     }
 
+    private boolean isImage(MultipartFile file){
+        return file.getContentType().startsWith("image");
+    }
+
     private static String getFileExtension(String name){
         return name.substring(name.lastIndexOf("."));
     }
