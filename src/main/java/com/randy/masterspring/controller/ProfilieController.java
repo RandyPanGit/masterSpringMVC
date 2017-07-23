@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -31,7 +32,12 @@ public class ProfilieController {
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String onUpload(MultipartFile file) throws IOException{
+    public String onUpload(MultipartFile file, RedirectAttributes redirectAttributes) throws IOException{
+
+        if (file.isEmpty() || !isImage(file)) {
+            redirectAttributes.addFlashAttribute("error","Incorrect file. Please upload a picture");
+            return "redirect:/upload";
+        }
         String fileName = file.getOriginalFilename();
         File tempFile = File.createTempFile("pic",getFileExtension(fileName),PICTURES_DIR.getFile());
 
