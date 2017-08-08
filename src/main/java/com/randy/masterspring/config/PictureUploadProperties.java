@@ -1,6 +1,7 @@
 package com.randy.masterspring.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 
 @ConfigurationProperties(prefix = "upload.pictures")
@@ -16,11 +17,11 @@ public class PictureUploadProperties {
         return uploadPath;
     }
 
-    public void setUploadPath(Resource uploadPath) {
-        this.uploadPath = uploadPath;
+    public void setUploadPath(String uploadPath) {
+        this.uploadPath = new DefaultResourceLoader().getResource(uploadPath);
     }
 
-    public void setAnonymousPicture(Resource anonymousPicture) {
-        this.anonymousPicture = anonymousPicture;
+    public void setAnonymousPicture(String anonymousPicture) {
+        this.anonymousPicture = new DefaultResourceLoader().getResource(anonymousPicture);
     }
 }
