@@ -1,15 +1,25 @@
-package com.randy.masterspring.controller;
+package com.randy.masterspring.profile;
 
 import com.randy.masterspring.date.USLocalDateFormatter;
 import com.randy.masterspring.model.ProfileForm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.*;
+import java.net.URLConnection;
 import java.util.Locale;
 
 /**
@@ -18,18 +28,30 @@ import java.util.Locale;
 @Controller
 public class ProfilieController {
 
+    private UserProfileSession userProfileSession;
+
+    @Autowired
+    public ProfilieController(UserProfileSession userProfileSession){
+        this.userProfileSession = userProfileSession;
+    }
+
+    @ModelAttribute
+    public ProfileForm getProfileForm(){
+        return userProfileSession.toForm();
+    }
+
     @RequestMapping("profile")
     public String displayProfile(ProfileForm profileForm){
         return "profile/profilePage";
     }
 
-    @RequestMapping(value = "/profile", method = RequestMethod.POST)
+    @RequestMapping(value = "/profile",params = {"save"},method = RequestMethod.POST)
     public String saveProfile(@Valid ProfileForm profileForm, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return "profile/profilePage";
         }
-        System.out.print("sava ok");
-        return "redirect:/profile";
+        userProfileSession.saveForm(profileForm);
+        return "redirect:/search/mixed;keywords="+String.join(",",profileForm.getTastes());
     }
 
     @ModelAttribute("dateFormat")
@@ -49,4 +71,5 @@ public class ProfilieController {
         profileForm.getTastes().remove(rowId.intValue());
         return "profile/profilePage";
     }
+
 }
