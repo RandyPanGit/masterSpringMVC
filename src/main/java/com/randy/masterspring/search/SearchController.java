@@ -3,13 +3,14 @@ package com.randy.masterspring.search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.MatrixVariable;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/search")
+@Controller
 public class SearchController {
 
     private SearchService searchService;
@@ -19,8 +20,12 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    @RequestMapping(value = "/{searchType}",method = RequestMethod.GET)
-    public List<Tweet> search(@PathVariable String searchType, @MatrixVariable List<String> keywords){
-        return searchService.search(searchType,keywords);
+    @RequestMapping("/search/{searchType}")
+    public ModelAndView search(@PathVariable String searchType, @MatrixVariable List<String> keywords){
+        List<Tweet> tweets = searchService.search(searchType,keywords);
+        ModelAndView modelAndView = new ModelAndView("resultPage");
+        modelAndView.addObject("tweets",tweets);
+        modelAndView.addObject("search",String.join(",",keywords));
+        return modelAndView;
     }
 }
