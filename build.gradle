@@ -33,4 +33,7 @@ dependencies {
 
     compile 'org.webjars:materializecss:0.96.0'
     compile 'org.webjars:jquery:2.1.4'
+
+    //jsr-310
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 }

@@ -1,11 +1,14 @@
 package com.randy.masterspring.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.randy.masterspring.date.USLocalDateFormatter;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -42,6 +45,13 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public EmbeddedServletContainerCustomizer containerCustomizer(){
         return container -> container.addErrorPages(new ErrorPage(MultipartException.class,"/uploadError"));
+    }
+
+    @Bean
+    public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder){
+        ObjectMapper objectMapper = builder.createXmlMapper(false).build();
+        objectMapper.configure(SerializationFeature.CLOSE_CLOSEABLE.WRITE_DATES_AS_TIMESTAMPS,false);
+        return objectMapper;
     }
 
     @Override
