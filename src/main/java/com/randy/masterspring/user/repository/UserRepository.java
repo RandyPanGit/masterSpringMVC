@@ -1,5 +1,6 @@
 package com.randy.masterspring.user.repository;
 
+import com.randy.masterspring.error.EntityNotFoundException;
 import com.randy.masterspring.user.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -13,16 +14,22 @@ public class UserRepository {
 
     private final Map<String,User> userMap = new ConcurrentHashMap<>();
 
-    public User save(String email, User user){
+    public User update(String email, User user) throws EntityNotFoundException {
+        if (!exists(email)){
+            throw new EntityNotFoundException("User " + email + " cannot be fount");
+        }
         user.setEmail(email);
         return userMap.put(email,user);
     }
 
     public User save(User user){
-        return save(user.getEmail(), user);
+        return userMap.put(user.getEmail(),user);
     }
 
-    public User findOne(String email){
+    public User findOne(String email) throws EntityNotFoundException {
+        if (!exists(email)){
+            throw new EntityNotFoundException("User " + email + " cannot be fount");
+        }
         return userMap.get(email);
     }
 
@@ -30,7 +37,10 @@ public class UserRepository {
         return new ArrayList<>(userMap.values());
     }
 
-    public void delete(String email){
+    public void delete(String email) throws EntityNotFoundException {
+        if (!exists(email)){
+            throw new EntityNotFoundException("User " + email + " cannot be fount");
+        }
         userMap.remove(email);
     }
 
