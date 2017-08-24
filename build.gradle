@@ -32,6 +32,9 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-social-twitter:1.5.4.RELEASE'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
     compile 'org.springframework.boot:spring-boot-starter-security:1.5.4.RELEASE'
+    // https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity3
+    compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity3:3.0.2.RELEASE'
+
 
 
     compile 'org.webjars:materializecss:0.96.0'
