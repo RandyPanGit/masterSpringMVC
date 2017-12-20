@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Profile("!async")
-public class SearchService {
+public class SearchService implements  TwitterSearch{
 
     private SearchCache searchCache;
 
@@ -20,6 +20,7 @@ public class SearchService {
         this.searchCache = searchCache;
     }
 
+    @Override
     public List<LightTweet> search(String searchType, List<String> keywords){
         return keywords.stream()
                 .flatMap(keyword -> searchCache.fetch(searchType, keyword).stream())
