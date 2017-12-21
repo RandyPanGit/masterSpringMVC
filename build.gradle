@@ -34,6 +34,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
     compile 'org.springframework.boot:spring-boot-starter-social-twitter'
+
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
     compile 'org.springframework.boot:spring-boot-starter-security'
     // https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity3
@@ -51,6 +52,15 @@ dependencies {
     //swagger
     compile 'io.springfox:springfox-swagger2:2.7.0'
     compile 'io.springfox:springfox-swagger-ui:2.7.0'
+
+    //message
+    compile 'org.springframework.boot:spring-boot-starter-websocket'
+    compile 'org.springframework:spring-messaging'
+
+    //websocket js
+    compile group: 'org.webjars.bower', name: 'sockjs-client', version: '1.0.0'
+    compile group: 'org.webjars.bower', name: 'stomp-websocket', version: '2.3.4'
+
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
