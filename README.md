@@ -5,9 +5,13 @@
 
 # 架構
 ## WEB
-[](pictures/index.png)
+![](pictures/index.png)
 # Spring Boot
 
 # Jenkins
 
+- install
+
 # Kubernetes
+
+- install with kubeadm
