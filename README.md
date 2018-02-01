@@ -4,6 +4,7 @@
 並使用Jenkins完成CI/CD功能 將專案部署至kubernetes
 
 # 架構
+![](pictures/2.png)
 ## WEB
 ![](pictures/index.png)
 # Spring Boot
