@@ -40,6 +40,10 @@ public class ProfilieController {
         return userProfileSession.toForm();
     }
 
+    @RequestMapping("/home")
+    public String home(){
+        return "home";
+    }
     @RequestMapping("profile")
     public String displayProfile(ProfileForm profileForm){
         return "profile/profilePage";

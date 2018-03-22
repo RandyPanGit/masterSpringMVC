@@ -16,6 +16,27 @@
                 <p th:text="${tweet.text}">text message</p>
             </li>
         </ul>
+
+        <span style="font-family:'KaiTi_GB2312';"><tr>
+  <td><a href="findall?pageNum=1">首页</a></td>
+  <td th:switch="${pageNum}">
+    <p th:case="1">
+      <a th:href="@{/emp/findall?pageNum=1}">上一页</a>
+    </p>
+    <p th:case="*">
+      <a th:href="@{/emp/findall(pageNum=${pageNum-1})}">上一页</a>
+    </p>
+  </td>
+  <td th:switch="${pageNum}">
+    <p th:case="${count}">
+      <a th:href="@{/emp/findall(pageNum=${count})}">下一页</a>
+    </p>
+    <p th:case="*">
+      <a th:href="@{/emp/findall(pageNum=${pageNum+1})}">下一页</a>
+    </p>
+  </td>
+  <td><a th:href="@{/emp/findall(pageNum=${count})}">尾页</a></td>
+</tr></span>
     </div>
 </body>
 </html>
